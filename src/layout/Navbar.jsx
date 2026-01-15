@@ -68,13 +68,16 @@ export const Navbar = () => {
                         <a 
                         href={link.href}
                         key={index}
+                        onClick={() => setIsMobileMenu(false)}
                         className="text-lg text-muted-foreground hover:text-foreground rounded-full hover:bg-surface"
                         >
                             {link.label}
                         </a>
                     ))}
 
-                <Button>Contact Me</Button>
+                <Button onClick={() => setIsMobileMenu(false)}>
+                    Contact Me
+                </Button>
                 </div>
             </div>
             )}
