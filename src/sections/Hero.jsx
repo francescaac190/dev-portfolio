@@ -4,9 +4,9 @@ import {
   ChevronDown,
   Github,
   Linkedin,
-  Twitter,
-  Download,
+  Download, 
 } from "lucide-react";
+import React, { useState } from "react";
 import { AnimatedBorderButton } from "@/components/AnimatedBorderButton";
 
 const skills = [
@@ -49,7 +49,19 @@ const skills = [
     "German (basic)"
   ];
   
+  const dotsCount = 30;
+
 export const Hero = () => {
+    const [dots] = useState(() =>
+        Array.from({ length: dotsCount }, (_, i) => ({
+          id: i,
+          left: Math.random() * 100,
+          top: Math.random() * 100,
+          duration: 15 + Math.random() * 20,
+          delay: Math.random() * 5,
+        }))
+      );
+
     return <section className="relative min-h-screen flex items-center overflow-hidden">
         
         <div className="absolute inset-0">
@@ -58,15 +70,16 @@ export const Hero = () => {
         </div>
 
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(30)].map((_, i)=> (
-                <div 
+            {dots.map((d, i)=> (
+                <div
+                    key={i}
                     className="absolute w-1.5 h-1.5 rounded-full opacity-60" 
                     style={{
                         backgroundColor: "#20B2A6",
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        animation: `slow-drift ${15 + Math.random()*20}s ease-in-out infinite`,
-                        animationDelay: `${Math.random()*5}s`
+                        left: `${d.left}%`,
+                        top: `${d.top}%`,
+                        animation: `slow-drift ${d.duration}s ease-in-out infinite`,
+                        animationDelay: `${d.delay}s`
                     }}
                 />
             ))}
@@ -104,7 +117,7 @@ export const Hero = () => {
               </p>
             </div>
 
-            {/* CTAs (fixed) */}
+            {/* Buttons */}
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
               <Button size="lg">
                 Contact Me <ArrowRight className="w-5 h-5" />
